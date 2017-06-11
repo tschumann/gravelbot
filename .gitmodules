@@ -1,0 +1,9 @@
+[submodule "sdk2013/hl2sdk"]
+	path = sdk2013/hl2sdk
+	url = https://github.com/alliedmodders/hl2sdk
+[submodule "hl2dm/hl2sdk"]
+	path = hl2dm/hl2sdk
+	url = https://github.com/alliedmodders/hl2sdk
+[submodule "dods/hl2sdk"]
+	path = dods/hl2sdk
+	url = https://github.com/alliedmodders/hl2sdk
