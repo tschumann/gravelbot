@@ -220,7 +220,7 @@ void CEmptyServerPlugin::UnPause( void )
 //---------------------------------------------------------------------------------
 const char *CEmptyServerPlugin::GetPluginDescription( void )
 {
-	return "Emtpy-Plugin V2, Valve";
+	return "Gravelbot";
 }
 
 //---------------------------------------------------------------------------------

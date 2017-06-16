@@ -380,4 +380,38 @@ void Bot_Think( CPluginBot *pBot )
 	pBot->m_BotInterface->RunPlayerMove( &cmd );
 }
 
+edict_t *Bot_FindEnemy( CPluginBot *pBot )
+{
+	edict_t *pEnemy = NULL;
+
+	for( int i = 1; i < 32; i++ )
+	{
+		IPlayerInfo *playerInfo = playerinfomanager->GetPlayerInfo(engine->PEntityOfEntIndex(i));
+		if( !playerInfo )
+		{
+			continue;
+		}
+
+		// if the player is dead or on the same team, skip them
+		if( playerInfo->IsDead() || ( pBot->m_PlayerInfo->GetTeamIndex() == playerInfo->GetTeamIndex() ) )
+		{
+			continue;
+		}
+
+		// if the player is far away, skip them
+		if( playerInfo->GetAbsOrigin().DistTo(pBot->m_PlayerInfo->GetAbsOrigin()) > 500 )
+		{
+			continue;
+		}
+
+		trace_t tr;
+		Ray_t ray;
+		ray.Init( pBot->m_PlayerInfo->GetAbsOrigin(), playerInfo->GetAbsOrigin() );
+		CTraceFilterHitAll traceFilter;
+
+		enginetrace->TraceRay( ray, MASK_SHOT, &traceFilter, &tr );
+	}
+
+	return pEnemy;
+}
 
