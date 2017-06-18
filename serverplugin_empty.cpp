@@ -174,7 +174,8 @@ bool CEmptyServerPlugin::Load(	CreateInterfaceFn interfaceFactory, CreateInterfa
 	randomStr = (IUniformRandomStream *)interfaceFactory(VENGINE_SERVER_RANDOM_INTERFACE_VERSION, NULL);
 
 	// get the interfaces we want to use
-	if(	! ( engine && gameeventmanager && g_pFullFileSystem && helpers && enginetrace && randomStr ) )
+	// TODO: g_pFullFileSystem initialisation isn't attempted anywhere?
+	if(	! ( engine && gameeventmanager && /*g_pFullFileSystem &&*/ helpers && enginetrace && randomStr ) )
 	{
 		return false; // we require all these interface to function
 	}
