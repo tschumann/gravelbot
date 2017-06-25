@@ -368,7 +368,7 @@ edict_t *Bot_FindEnemy(CPluginBot *pBot)
 		}
 
 		// if the player is far away, skip them
-		if( playerInfo->GetAbsOrigin().DistTo( pBot->m_PlayerInfo->GetAbsOrigin() ) > 500 )
+		if( playerInfo->GetAbsOrigin().DistTo( pBot->m_PlayerInfo->GetAbsOrigin() ) > 500.0 )
 		{
 			continue;
 		}
@@ -379,6 +379,12 @@ edict_t *Bot_FindEnemy(CPluginBot *pBot)
 		CTraceFilterHitAll traceFilter;
 
 		enginetrace->TraceRay( ray, MASK_SHOT, &traceFilter, &tr );
+
+		// TODO: need to get the entity somehow (it's a CBaseEntity)
+		if( tr.fraction == 1.0 && tr.m_pEnt != NULL )
+		{
+			Msg( "Trace hit something\n" );
+		}
 	}
 
 	return pEnemy;
