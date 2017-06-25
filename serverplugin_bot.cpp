@@ -62,6 +62,7 @@ public:
 		m_ForwardAngle(),
 		m_LastAngles()
 		{
+		m_Respawn = false;
 		}
 
 	bool			m_bBackwards;
@@ -78,6 +79,8 @@ public:
 	IBotController	*m_BotInterface;
 	IPlayerInfo		*m_PlayerInfo;
 	edict_t			*m_BotEdict;
+
+	bool			m_Respawn;
 };
 
 CUtlVector<CPluginBot> s_Bots;
@@ -327,13 +330,58 @@ void Bot_HandleRespawn( CPluginBot *pBot, CBotCmd &cmd )
 	// Wait for Reinforcement wave
 	if ( pBot->m_PlayerInfo->IsDead() )
 	{
+		DevMsg( "Bot is spawning on team index %d\n", pBot->m_PlayerInfo->GetTeamIndex() );
 		if ( pBot->m_PlayerInfo->GetTeamIndex() == 0 )
 		{
 			helpers->ClientCommand( pBot->m_BotEdict, "joingame" );
-			helpers->ClientCommand( pBot->m_BotEdict, "jointeam 3" );
-			helpers->ClientCommand( pBot->m_BotEdict, "joinclass 0" );
+			helpers->ClientCommand( pBot->m_BotEdict, "jointeam 2" );
+			pBot->m_Respawn = true;
 		}
 	}
+}
+
+
+edict_t *Bot_FindEnemy(CPluginBot *pBot)
+{
+	edict_t *pEnemy = NULL;
+
+	// TODO: get the actual maxplayers
+	for( int i = 1; i <= 2; i++ )
+	{
+		edict_t *pEdict = engine->PEntityOfEntIndex( i );
+
+		if( pEdict->IsFree() )
+		{
+			continue;
+		}
+
+		IPlayerInfo *playerInfo = playerinfomanager->GetPlayerInfo( pEdict );
+		if( !playerInfo )
+		{
+			continue;
+		}
+
+		// if the player is dead or on the same team, skip them
+		if( playerInfo->IsDead() || (pBot->m_PlayerInfo->GetTeamIndex() == playerInfo->GetTeamIndex()) )
+		{
+			continue;
+		}
+
+		// if the player is far away, skip them
+		if( playerInfo->GetAbsOrigin().DistTo( pBot->m_PlayerInfo->GetAbsOrigin() ) > 500 )
+		{
+			continue;
+		}
+
+		trace_t tr;
+		Ray_t ray;
+		ray.Init( pBot->m_PlayerInfo->GetAbsOrigin(), playerInfo->GetAbsOrigin() );
+		CTraceFilterHitAll traceFilter;
+
+		enginetrace->TraceRay( ray, MASK_SHOT, &traceFilter, &tr );
+	}
+
+	return pEnemy;
 }
 
 
@@ -352,6 +400,19 @@ void Bot_Think( CPluginBot *pBot )
 
 		if ( !pBot->m_PlayerInfo->IsDead() )
 		{
+			// to get the bot to respawn a button needs to be pressed once the game thinks they are no longer dead
+			if( pBot->m_Respawn )
+			{
+				cmd.buttons |= IN_JUMP;
+
+				// once the bot has spawned (should really look at the player_spawn event in FireGameEvent or something like that instead
+				if( pBot->m_PlayerInfo->GetHealth() == 100 )
+				{
+					// stop pressing buttons
+					pBot->m_Respawn = false;
+				}
+			}
+
 			Bot_SetForwardMovement( pBot, cmd );
 
 			// Only turn if I haven't been hurt
@@ -359,6 +420,13 @@ void Bot_Think( CPluginBot *pBot )
 			{
 				Bot_UpdateDirection( pBot );
 				Bot_UpdateStrafing( pBot, cmd );
+			}
+
+			edict_t *pEnemy = Bot_FindEnemy( pBot );
+
+			if( pEnemy )
+			{
+				Warning( "Found enemy\n" );
 			}
 
 			// Handle console settings.
@@ -379,39 +447,3 @@ void Bot_Think( CPluginBot *pBot )
 
 	pBot->m_BotInterface->RunPlayerMove( &cmd );
 }
-
-edict_t *Bot_FindEnemy( CPluginBot *pBot )
-{
-	edict_t *pEnemy = NULL;
-
-	for( int i = 1; i < 32; i++ )
-	{
-		IPlayerInfo *playerInfo = playerinfomanager->GetPlayerInfo(engine->PEntityOfEntIndex(i));
-		if( !playerInfo )
-		{
-			continue;
-		}
-
-		// if the player is dead or on the same team, skip them
-		if( playerInfo->IsDead() || ( pBot->m_PlayerInfo->GetTeamIndex() == playerInfo->GetTeamIndex() ) )
-		{
-			continue;
-		}
-
-		// if the player is far away, skip them
-		if( playerInfo->GetAbsOrigin().DistTo(pBot->m_PlayerInfo->GetAbsOrigin()) > 500 )
-		{
-			continue;
-		}
-
-		trace_t tr;
-		Ray_t ray;
-		ray.Init( pBot->m_PlayerInfo->GetAbsOrigin(), playerInfo->GetAbsOrigin() );
-		CTraceFilterHitAll traceFilter;
-
-		enginetrace->TraceRay( ray, MASK_SHOT, &traceFilter, &tr );
-	}
-
-	return pEnemy;
-}
-

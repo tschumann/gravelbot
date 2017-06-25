@@ -177,6 +177,7 @@ bool CEmptyServerPlugin::Load(	CreateInterfaceFn interfaceFactory, CreateInterfa
 	// TODO: g_pFullFileSystem initialisation isn't attempted anywhere?
 	if(	! ( engine && gameeventmanager && /*g_pFullFileSystem &&*/ helpers && enginetrace && randomStr ) )
 	{
+		Warning( "Unable to load interfaces to run plugin\n" );
 		return false; // we require all these interface to function
 	}
 
