@@ -10,6 +10,12 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{f74b0b5f-d3a5-4f1b-8d0b-227194c534c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\hl2dm">
+      <UniqueIdentifier>{9f7fbc23-b68e-4f34-b051-ea89ae52d30a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hl2dm">
+      <UniqueIdentifier>{2b194c58-61ff-43d7-9042-f592c1fdb315}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hl2sdk\public\tier0\memoverride.cpp">
@@ -20,6 +26,9 @@
     </ClCompile>
     <ClCompile Include="..\serverplugin_empty.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hl2mp_player.cpp">
+      <Filter>Source Files\hl2dm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +104,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="hl2sdk\public\vstdlib\vstdlib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hl2mp_player.h">
+      <Filter>Header Files\hl2dm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\bot_baseentity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

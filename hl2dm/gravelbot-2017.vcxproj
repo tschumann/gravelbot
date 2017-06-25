@@ -189,6 +189,7 @@
   <ItemGroup>
     <ClCompile Include="..\serverplugin_bot.cpp" />
     <ClCompile Include="..\serverplugin_empty.cpp" />
+    <ClCompile Include="hl2mp_player.cpp" />
     <ClCompile Include="hl2sdk\public\tier0\memoverride.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -204,6 +205,8 @@
     <Library Include="hl2sdk\lib\public\vstdlib.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\bot_baseentity.h" />
+    <ClInclude Include="hl2mp_player.h" />
     <ClInclude Include="hl2sdk\public\Color.h" />
     <ClInclude Include="hl2sdk\public\eiface.h" />
     <ClInclude Include="hl2sdk\public\engine\iserverplugin.h" />
