@@ -29,6 +29,7 @@
 
 #include "plugin_interface.h"
 #include "bot.h"
+#include "game.h"
 
 extern IBotManager *botmanager; 
 extern IUniformRandomStream *randomStr;
@@ -53,6 +54,25 @@ ConVar bot_crouch( "plugin_bot_crouch", "0", 0, "Bot crouches" );
 
 CUtlVector<CPluginBot *> s_Bots;
 
+CPluginBot *CreateBot()
+{
+	switch( engine->GetAppID() )
+	{
+	case Game::HL2DM_APPID:
+		return new HL2DMBot();
+		break;
+	case Game::DOD_APPID:
+		return new DODBot();
+		break;
+	case Game::BMS_APPID:
+		return new BMSBot();
+		break;
+	default:
+		Error( "Unsupported appid %d\n", engine->GetAppID() );
+		return NULL;
+	}
+}
+
 void Bot_Think( CPluginBot *pBot );
 
 // Handler for the "bot" command.
@@ -69,7 +89,7 @@ void BotAdd_f()
 	edict_t *botEdict = botmanager->CreateBot( botName );
 	if ( botEdict )
 	{
-		CPluginBot *pBot = new CPluginBot();
+		CPluginBot *pBot = CreateBot();
 		s_Bots.AddToTail( pBot );
 		pBot->m_BotInterface = botmanager->GetBotController( botEdict );
 		pBot->m_PlayerInfo = playerinfomanager->GetPlayerInfo( botEdict );

@@ -1,3 +1,9 @@
+//
+// Gravelbot
+//
+// (http://www.teamsandpit.com/)
+//
+
 #ifndef _BOT_H_
 #define _BOT_H_
 
@@ -37,6 +43,21 @@ public:
 	edict_t			*m_BotEdict;
 
 	bool			m_Respawn;
+};
+
+class HL2DMBot : public CPluginBot
+{
+	//
+};
+
+class DODBot : public CPluginBot
+{
+	//
+};
+
+class BMSBot : public CPluginBot
+{
+	//
 };
 
 extern CUtlVector<CPluginBot *> s_Bots;

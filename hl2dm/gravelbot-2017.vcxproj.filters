@@ -30,6 +30,15 @@
     <ClCompile Include="hl2mp_player.cpp">
       <Filter>Source Files\hl2dm</Filter>
     </ClCompile>
+    <ClCompile Include="..\bot_bms.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bot_dod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\bot_hl2dm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="hl2sdk\lib\public\mathlib.lib">
@@ -116,6 +125,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\bot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

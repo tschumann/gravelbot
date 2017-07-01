@@ -187,6 +187,9 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\bot_bms.cpp" />
+    <ClCompile Include="..\bot_dod.cpp" />
+    <ClCompile Include="..\bot_hl2dm.cpp" />
     <ClCompile Include="..\serverplugin_bot.cpp" />
     <ClCompile Include="..\serverplugin_empty.cpp" />
     <ClCompile Include="hl2mp_player.cpp" />
@@ -207,6 +210,7 @@
   <ItemGroup>
     <ClInclude Include="..\bot.h" />
     <ClInclude Include="..\bot_baseentity.h" />
+    <ClInclude Include="..\game.h" />
     <ClInclude Include="..\plugin_interface.h" />
     <ClInclude Include="hl2mp_player.h" />
     <ClInclude Include="hl2sdk\public\Color.h" />
