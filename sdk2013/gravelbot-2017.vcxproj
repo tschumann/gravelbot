@@ -205,6 +205,7 @@
     <Library Include="hl2sdk\lib\public\vstdlib.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\bot.h" />
     <ClInclude Include="..\bot_baseentity.h" />
     <ClInclude Include="..\plugin_interface.h" />
     <ClInclude Include="hl2mp_player.h" />

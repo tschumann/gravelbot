@@ -36,6 +36,7 @@
 #endif // INTERFACEVERSION_GAMEINFOMANAGER
 
 #include "plugin_interface.h"
+#include "bot.h"
 #include "tier1.h"
 
 //#define SAMPLE_TF2_PLUGIN
@@ -200,6 +201,14 @@ bool CEmptyServerPlugin::Load(	CreateInterfaceFn interfaceFactory, CreateInterfa
 void CEmptyServerPlugin::Unload( void )
 {
 	gameeventmanager->RemoveListener( this ); // make sure we are unloaded from the event system
+
+	// clean up the bots
+	for ( int i = 0; i < s_Bots.Count(); i++ )
+	{
+		CPluginBot *pBot = s_Bots[i];
+		delete pBot;
+		s_Bots[i] = NULL;
+	}
 
 	ConVar_Unregister( );
 	DisconnectTier2Libraries( );

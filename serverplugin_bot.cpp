@@ -28,6 +28,7 @@
 #include "engine/IEngineTrace.h"
 
 #include "plugin_interface.h"
+#include "bot.h"
 
 extern IBotManager *botmanager; 
 extern IUniformRandomStream *randomStr;
@@ -50,42 +51,7 @@ static ConVar bot_mimic_yaw_offset( "plugin_bot_mimic_yaw_offset", "0", 0, "Offs
 ConVar bot_sendcmd( "plugin_bot_sendcmd", "", 0, "Forces bots to send the specified command." );
 ConVar bot_crouch( "plugin_bot_crouch", "0", 0, "Bot crouches" );
 
-
-// This is our bot class.
-class CPluginBot
-{
-public:
-	CPluginBot() :
-		m_bBackwards(0),
-		m_flNextTurnTime(0),
-		m_bLastTurnToRight(0),
-		m_flNextStrafeTime(0),
-		m_flSideMove(0),
-		m_ForwardAngle(),
-		m_LastAngles()
-		{
-		m_Respawn = false;
-		}
-
-	bool			m_bBackwards;
-
-	float			m_flNextTurnTime;
-	bool			m_bLastTurnToRight;
-
-	float			m_flNextStrafeTime;
-	float			m_flSideMove;
-
-	QAngle			m_ForwardAngle;
-	QAngle			m_LastAngles;
-
-	IBotController	*m_BotInterface;
-	IPlayerInfo		*m_PlayerInfo;
-	edict_t			*m_BotEdict;
-
-	bool			m_Respawn;
-};
-
-CUtlVector<CPluginBot> s_Bots;
+CUtlVector<CPluginBot *> s_Bots;
 
 void Bot_Think( CPluginBot *pBot );
 
@@ -103,12 +69,12 @@ void BotAdd_f()
 	edict_t *botEdict = botmanager->CreateBot( botName );
 	if ( botEdict )
 	{
-		int botIndex = s_Bots.AddToTail();
-		CPluginBot & bot = s_Bots[ botIndex ];
-		bot.m_BotInterface = botmanager->GetBotController( botEdict );
-		bot.m_PlayerInfo = playerinfomanager->GetPlayerInfo( botEdict );
-		bot.m_BotEdict = botEdict;
-		Assert( bot.m_BotInterface );
+		CPluginBot *pBot = new CPluginBot();
+		s_Bots.AddToTail( pBot );
+		pBot->m_BotInterface = botmanager->GetBotController( botEdict );
+		pBot->m_PlayerInfo = playerinfomanager->GetPlayerInfo( botEdict );
+		pBot->m_BotEdict = botEdict;
+		Assert( pBot->m_BotInterface );
 	}
 }
 
@@ -125,15 +91,15 @@ void Bot_RunAll( void )
 
 	for ( int i = 0; i < s_Bots.Count(); i++ )
 	{
-		CPluginBot & bot = s_Bots[i];
-		if ( bot.m_BotEdict->IsFree() || !bot.m_BotEdict->GetUnknown()|| !bot.m_PlayerInfo->IsConnected() )
+		CPluginBot *pBot = s_Bots[i];
+		if ( pBot->m_BotEdict->IsFree() || !pBot->m_BotEdict->GetUnknown()|| !pBot->m_PlayerInfo->IsConnected() )
 		{
 			s_Bots.Remove(i);
 			--i;
 		}
 		else
 		{
-			Bot_Think( &bot );
+			Bot_Think( pBot );
 		}
 	}
 }
