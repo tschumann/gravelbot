@@ -35,6 +35,9 @@
 #include "game/server/igameinfo.h"
 #endif // INTERFACEVERSION_GAMEINFOMANAGER
 
+#include "plugin_interface.h"
+#include "tier1.h"
+
 //#define SAMPLE_TF2_PLUGIN
 #ifdef SAMPLE_TF2_PLUGIN
 #include "tf/tf_shareddefs.h"
@@ -175,7 +178,7 @@ bool CEmptyServerPlugin::Load(	CreateInterfaceFn interfaceFactory, CreateInterfa
 
 	// get the interfaces we want to use
 	// TODO: g_pFullFileSystem initialisation isn't attempted anywhere?
-	if(	! ( engine && gameeventmanager && /*g_pFullFileSystem &&*/ helpers && enginetrace && randomStr ) )
+	if(	! ( engine && gameeventmanager && /*g_pFullFileSystem &&*/ helpers && enginetrace && randomStr && g_pCVar ) )
 	{
 		Warning( "Unable to load interfaces to run plugin\n" );
 		return false; // we require all these interface to function

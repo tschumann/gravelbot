@@ -27,6 +27,8 @@
 //#include "../../game_shared/util_shared.h"
 #include "engine/IEngineTrace.h"
 
+#include "plugin_interface.h"
+
 extern IBotManager *botmanager; 
 extern IUniformRandomStream *randomStr;
 extern IPlayerInfoManager *playerinfomanager; 
@@ -345,8 +347,7 @@ edict_t *Bot_FindEnemy(CPluginBot *pBot)
 {
 	edict_t *pEnemy = NULL;
 
-	// TODO: get the actual maxplayers
-	for( int i = 1; i <= 2; i++ )
+	for( int i = 1; i <= g_pCVar->FindVar("maxplayers")->GetInt(); i++ )
 	{
 		edict_t *pEdict = engine->PEntityOfEntIndex( i );
 

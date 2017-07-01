@@ -206,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\bot_baseentity.h" />
+    <ClInclude Include="..\plugin_interface.h" />
     <ClInclude Include="hl2mp_player.h" />
     <ClInclude Include="hl2sdk\public\Color.h" />
     <ClInclude Include="hl2sdk\public\eiface.h" />

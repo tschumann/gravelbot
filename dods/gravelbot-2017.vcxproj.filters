@@ -112,5 +112,8 @@
     <ClInclude Include="..\bot_baseentity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\plugin_interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
