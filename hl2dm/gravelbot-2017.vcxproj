@@ -187,6 +187,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\bot.cpp" />
     <ClCompile Include="..\bot_bms.cpp" />
     <ClCompile Include="..\bot_dod.cpp" />
     <ClCompile Include="..\bot_hl2dm.cpp" />

@@ -39,6 +39,9 @@
     <ClCompile Include="..\bot_hl2dm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\bot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="hl2sdk\lib\public\mathlib.lib">

@@ -313,22 +313,6 @@ void Bot_SetForwardMovement( CPluginBot *pBot, CBotCmd &cmd )
 }
 
 
-void Bot_HandleRespawn( CPluginBot *pBot, CBotCmd &cmd )
-{
-	// Wait for Reinforcement wave
-	if ( pBot->m_PlayerInfo->IsDead() )
-	{
-		DevMsg( "Bot is spawning on team index %d\n", pBot->m_PlayerInfo->GetTeamIndex() );
-		if ( pBot->m_PlayerInfo->GetTeamIndex() == 0 )
-		{
-			helpers->ClientCommand( pBot->m_BotEdict, "joingame" );
-			helpers->ClientCommand( pBot->m_BotEdict, "jointeam 2" );
-			pBot->m_Respawn = true;
-		}
-	}
-}
-
-
 edict_t *Bot_FindEnemy(CPluginBot *pBot)
 {
 	edict_t *pEnemy = NULL;
@@ -428,7 +412,7 @@ void Bot_Think( CPluginBot *pBot )
 		}
 		else
 		{
-			Bot_HandleRespawn( pBot, cmd );
+			pBot->HandleRespawn( cmd );
 		}
 
 		Bot_FlipOut( pBot, cmd );

@@ -10,6 +10,7 @@
 #include "eiface.h"
 #include "edict.h"
 #include "game/server/iplayerinfo.h"
+#include "plugin_interface.h"
 
 // This is our bot class.
 class CPluginBot
@@ -43,6 +44,8 @@ public:
 	edict_t			*m_BotEdict;
 
 	bool			m_Respawn;
+
+	void HandleRespawn( CBotCmd &cmd );
 };
 
 class HL2DMBot : public CPluginBot
