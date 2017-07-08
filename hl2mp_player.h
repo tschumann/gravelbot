@@ -1,6 +1,6 @@
 
 #include "eiface.h"
-#include "..\bot_baseentity.h"
+#include "bot_baseentity.h"
 
 namespace hl2dm
 {

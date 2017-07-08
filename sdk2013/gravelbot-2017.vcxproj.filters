@@ -27,9 +27,6 @@
     <ClCompile Include="..\serverplugin_empty.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="hl2mp_player.cpp">
-      <Filter>Source Files\hl2dm</Filter>
-    </ClCompile>
     <ClCompile Include="..\bot_bms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -41,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="..\bot.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\hl2mp_player.cpp">
+      <Filter>Source Files\hl2dm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +118,6 @@
     <ClInclude Include="hl2sdk\public\vstdlib\vstdlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hl2mp_player.h">
-      <Filter>Header Files\hl2dm</Filter>
-    </ClInclude>
     <ClInclude Include="..\bot_baseentity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -132,6 +129,9 @@
     </ClInclude>
     <ClInclude Include="..\game.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\hl2mp_player.h">
+      <Filter>Header Files\hl2dm</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
