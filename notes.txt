@@ -1,0 +1,4 @@
+Adding support for a new engine version:
+- Create a new directory in gravelbot/
+- cd into the new directory and git submodule add https://github.com/alliedmodders/hl2sdk.git
+- cd hl2sdk and git checkout the branch for the new engine version

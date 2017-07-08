@@ -7,3 +7,6 @@
 [submodule "dods/hl2sdk"]
 	path = dods/hl2sdk
 	url = https://github.com/alliedmodders/hl2sdk
+[submodule "bms/hl2sdk"]
+	path = bms/hl2sdk
+	url = https://github.com/alliedmodders/hl2sdk.git
