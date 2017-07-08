@@ -316,8 +316,10 @@ void Bot_SetForwardMovement( CPluginBot *pBot, CBotCmd &cmd )
 edict_t *Bot_FindEnemy(CPluginBot *pBot)
 {
 	edict_t *pEnemy = NULL;
+	ConVar *maxplayers = g_pCVar->FindVar("maxplayers");
+	ConVarRef ref_maxplayers = ConVarRef(maxplayers);
 
-	for( int i = 1; i <= g_pCVar->FindVar("maxplayers")->GetInt(); i++ )
+	for( int i = 1; i <= 0 /*maxplayers->GetInt()*/; i++ )
 	{
 		edict_t *pEdict = engine->PEntityOfEntIndex( i );
 
