@@ -313,17 +313,21 @@ void Bot_SetForwardMovement( CPluginBot *pBot, CBotCmd &cmd )
 }
 
 
-edict_t *Bot_FindEnemy(CPluginBot *pBot)
+edict_t *Bot_FindEnemy( CPluginBot *pBot )
 {
 	edict_t *pEnemy = NULL;
-	ConVar *maxplayers = g_pCVar->FindVar("maxplayers");
-	ConVarRef ref_maxplayers = ConVarRef(maxplayers);
 
-	for( int i = 1; i <= 0 /*maxplayers->GetInt()*/; i++ )
+	for( int i = 1; i <= playerinfomanager->GetGlobalVars()->maxClients; i++ )
 	{
 		edict_t *pEdict = engine->PEntityOfEntIndex( i );
 
 		if( pEdict->IsFree() )
+		{
+			continue;
+		}
+
+		// if this is the bot itself, skip it
+		if( engine->IndexOfEdict(pBot->m_BotEdict) == i )
 		{
 			continue;
 		}
@@ -335,7 +339,7 @@ edict_t *Bot_FindEnemy(CPluginBot *pBot)
 		}
 
 		// if the player is dead or on the same team, skip them
-		if( playerInfo->IsDead() || (pBot->m_PlayerInfo->GetTeamIndex() == playerInfo->GetTeamIndex()) )
+		if( playerInfo->IsDead() )
 		{
 			continue;
 		}
@@ -345,6 +349,8 @@ edict_t *Bot_FindEnemy(CPluginBot *pBot)
 		{
 			continue;
 		}
+
+		Msg("Player %d is close enough to see\n", i);
 
 		trace_t tr;
 		Ray_t ray;
