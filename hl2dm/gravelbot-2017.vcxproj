@@ -187,6 +187,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\baseplayer.cpp" />
     <ClCompile Include="..\bot.cpp" />
     <ClCompile Include="..\bot_bms.cpp" />
     <ClCompile Include="..\bot_dod.cpp" />
@@ -209,6 +210,7 @@
     <Library Include="hl2sdk\lib\public\vstdlib.lib" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\baseplayer.h" />
     <ClInclude Include="..\bot.h" />
     <ClInclude Include="..\bot_baseentity.h" />
     <ClInclude Include="..\game.h" />

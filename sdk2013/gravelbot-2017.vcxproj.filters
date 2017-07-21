@@ -42,6 +42,9 @@
     <ClCompile Include="..\hl2mp_player.cpp">
       <Filter>Source Files\hl2dm</Filter>
     </ClCompile>
+    <ClCompile Include="..\baseplayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="hl2sdk\lib\public\mathlib.lib">
@@ -132,6 +135,9 @@
     </ClInclude>
     <ClInclude Include="..\hl2mp_player.h">
       <Filter>Header Files\hl2dm</Filter>
+    </ClInclude>
+    <ClInclude Include="..\baseplayer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

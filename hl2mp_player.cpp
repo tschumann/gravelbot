@@ -1,12 +1,17 @@
+//
+// Gravelbot
+//
+// (http://www.teamsandpit.com/)
+//
 
 #include "hl2mp_player.h"
 
 namespace hl2dm
 {
-	const Vector CBasePlayer::EyeAngles(CBaseEntity *pObject)
+	const Vector CBasePlayer::EyeAngles()
 	{
 		// get this
-		void **pThis = *(void ***)&pObject;
+		void **pThis = *(void ***)&this->pObject;
 		// get the vtable as an array of void *
 		void **vtable = *(void ***)pThis;
 #ifndef __linux__
