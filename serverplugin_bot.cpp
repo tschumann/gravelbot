@@ -400,8 +400,7 @@ void Bot_Think( CPluginBot *pBot )
 
 			Bot_SetForwardMovement( pBot, cmd );
 
-			// Only turn if I haven't been hurt
-			if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) && pBot->m_PlayerInfo->GetHealth() == 100 )
+			if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) )
 			{
 				Bot_UpdateDirection( pBot );
 				Bot_UpdateStrafing( pBot, cmd );
