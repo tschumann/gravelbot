@@ -10,9 +10,10 @@
 
 namespace hl2dm
 {
-	class CBasePlayer : public BasePlayer
+	class CBasePlayer : public BotBasePlayer
 	{
 	public:
+		CBasePlayer( CBaseEntity *pObject );
 		virtual const Vector EyeAngles();
 	};
 }

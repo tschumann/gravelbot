@@ -6,10 +6,17 @@
 
 #include "eiface.h"
 
-class BasePlayer
+#ifndef _BOTBASEPLAYER_H_
+#define _BOTBASEPLAYER_H_
+
+class BotBasePlayer
 {
 public:
+	BotBasePlayer();
+	BotBasePlayer( CBaseEntity *pObject );
 	virtual const Vector EyeAngles() = 0;
 protected:
 	CBaseEntity *pObject;
 };
+
+#endif // _BOTBASEPLAYER_H_

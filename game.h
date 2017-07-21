@@ -4,6 +4,9 @@
 // (http://www.teamsandpit.com/)
 //
 
+#ifndef _GAME_H_
+#define _GAME_H_
+
 class Game
 {
 public:
@@ -16,3 +19,5 @@ public:
 	const static int EYE_APPID = 91700;
 	const static int BMS_APPID = 362890;
 };
+
+#endif // _GAME_H_

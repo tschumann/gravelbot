@@ -30,6 +30,8 @@
 #include "plugin_interface.h"
 #include "bot.h"
 #include "game.h"
+#include "util.h"
+#include "hl2mp_player.h"
 
 extern IBotManager *botmanager; 
 extern IUniformRandomStream *randomStr;
@@ -73,6 +75,23 @@ CPluginBot *CreateBot()
 	}
 }
 
+BotBasePlayer *CreateBasePlayer( edict_t *pEdict )
+{
+	switch( engine->GetAppID() )
+	{
+	case Game::HL2DM_APPID:
+		return new hl2dm::CBasePlayer( GetBaseEntity( pEdict ) );
+		break;
+	case Game::DOD_APPID:
+		break;
+	case Game::BMS_APPID:
+		break;
+	default:
+		Error("Unsupported appid %d\n", engine->GetAppID());
+		return NULL;
+	}
+}
+
 void Bot_Think( CPluginBot *pBot );
 
 // Handler for the "bot" command.
@@ -94,6 +113,7 @@ void BotAdd_f()
 		pBot->m_BotInterface = botmanager->GetBotController( botEdict );
 		pBot->m_PlayerInfo = playerinfomanager->GetPlayerInfo( botEdict );
 		pBot->m_BotEdict = botEdict;
+		pBot->pPlayer = CreateBasePlayer( botEdict );
 		Assert( pBot->m_BotInterface );
 	}
 }

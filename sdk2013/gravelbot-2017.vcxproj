@@ -195,6 +195,7 @@
     <ClCompile Include="..\hl2mp_player.cpp" />
     <ClCompile Include="..\serverplugin_bot.cpp" />
     <ClCompile Include="..\serverplugin_empty.cpp" />
+    <ClCompile Include="..\util.cpp" />
     <ClCompile Include="hl2sdk\public\tier0\memoverride.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -216,6 +217,7 @@
     <ClInclude Include="..\game.h" />
     <ClInclude Include="..\hl2mp_player.h" />
     <ClInclude Include="..\plugin_interface.h" />
+    <ClInclude Include="..\util.h" />
     <ClInclude Include="hl2sdk\public\Color.h" />
     <ClInclude Include="hl2sdk\public\eiface.h" />
     <ClInclude Include="hl2sdk\public\engine\iserverplugin.h" />

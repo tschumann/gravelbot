@@ -8,6 +8,11 @@
 
 namespace hl2dm
 {
+	CBasePlayer::CBasePlayer( CBaseEntity *pObject )
+	{
+		this->pObject = pObject;
+	}
+
 	const Vector CBasePlayer::EyeAngles()
 	{
 		// get this

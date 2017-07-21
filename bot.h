@@ -11,6 +11,7 @@
 #include "edict.h"
 #include "game/server/iplayerinfo.h"
 #include "plugin_interface.h"
+#include "baseplayer.h"
 
 // This is our bot class.
 class CPluginBot
@@ -46,6 +47,10 @@ public:
 	bool			m_Respawn;
 
 	void HandleRespawn( CBotCmd &cmd );
+
+	// TODO: should be protected
+	BotBasePlayer *pPlayer;
+protected:
 };
 
 class HL2DMBot : public CPluginBot
