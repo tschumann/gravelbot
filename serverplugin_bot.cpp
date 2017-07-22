@@ -316,18 +316,10 @@ void Bot_SetForwardMovement( CPluginBot *pBot, CBotCmd &cmd )
 {
 	if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) )
 	{
-		if ( pBot->m_PlayerInfo->GetHealth() == 100 )
+		cmd.forwardmove = 600 * ( pBot->m_bBackwards ? -1 : 1 );
+		if ( pBot->m_flSideMove != 0.0f )
 		{
-			cmd.forwardmove = 600 * ( pBot->m_bBackwards ? -1 : 1 );
-			if ( pBot->m_flSideMove != 0.0f )
-			{
-				cmd.forwardmove *= randomStr->RandomFloat( 0.1, 1.0f );
-			}
-		}
-		else
-		{
-			// Stop when shot
-			cmd.forwardmove = 0;
+			cmd.forwardmove *= randomStr->RandomFloat( 0.1, 1.0f );
 		}
 	}
 }
@@ -370,7 +362,7 @@ edict_t *Bot_FindEnemy( CPluginBot *pBot )
 			continue;
 		}
 
-		Msg("Player %d is close enough to see\n", i);
+		Msg( "Player %d is close enough to see\n", i );
 
 		trace_t tr;
 		Ray_t ray;
