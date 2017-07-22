@@ -6,6 +6,11 @@
 
 #include "bot.h"
 
+int CPluginBot::GetMaxHealth()
+{
+	return 100;
+}
+
 void CPluginBot::HandleRespawn( CBotCmd &cmd )
 {
 	// Wait for Reinforcement wave
@@ -19,4 +24,9 @@ void CPluginBot::HandleRespawn( CBotCmd &cmd )
 			this->m_Respawn = true;
 		}
 	}
+}
+
+bool CPluginBot::CanMove()
+{
+	return bot_move.GetInt() > 0;
 }

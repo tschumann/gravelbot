@@ -53,6 +53,7 @@ static ConVar bot_mimic_yaw_offset( "plugin_bot_mimic_yaw_offset", "0", 0, "Offs
 
 ConVar bot_sendcmd( "plugin_bot_sendcmd", "", 0, "Forces bots to send the specified command." );
 ConVar bot_crouch( "plugin_bot_crouch", "0", 0, "Bot crouches" );
+ConVar bot_move( "plugin_bot_move", "1", 0, "Bot moves" );
 
 CUtlVector<CPluginBot *> s_Bots;
 
@@ -247,7 +248,7 @@ void Bot_UpdateDirection( CPluginBot *pBot )
 
 void Bot_FlipOut( CPluginBot *pBot, CBotCmd &cmd )
 {
-	if ( bot_flipout.GetInt() > 0 && !pBot->m_PlayerInfo->IsDead() )
+	if ( bot_flipout.GetInt() > 0 && !pBot->m_PlayerInfo->IsDead() && pBot->CanMove() )
 	{
 		if ( bot_forceattackon.GetBool() || (RandomFloat(0.0,1.0) > 0.5) )
 		{
@@ -314,7 +315,7 @@ void Bot_ForceFireWeapon( CPluginBot *pBot, CBotCmd &cmd )
 
 void Bot_SetForwardMovement( CPluginBot *pBot, CBotCmd &cmd )
 {
-	if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) )
+	if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) && pBot->CanMove() )
 	{
 		cmd.forwardmove = 600 * ( pBot->m_bBackwards ? -1 : 1 );
 		if ( pBot->m_flSideMove != 0.0f )
@@ -372,7 +373,7 @@ edict_t *Bot_FindEnemy( CPluginBot *pBot )
 		enginetrace->TraceRay( ray, MASK_SHOT, &traceFilter, &tr );
 
 		// TODO: need to get the entity somehow (it's a CBaseEntity)
-		if( tr.fraction == 1.0 && tr.m_pEnt != NULL )
+		if( tr.fraction == 1.0 )
 		{
 			Msg( "Trace hit something\n" );
 		}
@@ -403,7 +404,7 @@ void Bot_Think( CPluginBot *pBot )
 				cmd.buttons |= IN_JUMP;
 
 				// once the bot has spawned (should really look at the player_spawn event in FireGameEvent or something like that instead
-				if( pBot->m_PlayerInfo->GetHealth() == 100 )
+				if( pBot->m_PlayerInfo->GetHealth() == pBot->GetMaxHealth() )
 				{
 					// stop pressing buttons
 					pBot->m_Respawn = false;
@@ -412,7 +413,7 @@ void Bot_Think( CPluginBot *pBot )
 
 			Bot_SetForwardMovement( pBot, cmd );
 
-			if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) )
+			if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) && pBot->CanMove() )
 			{
 				Bot_UpdateDirection( pBot );
 				Bot_UpdateStrafing( pBot, cmd );

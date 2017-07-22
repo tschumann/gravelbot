@@ -13,6 +13,8 @@
 #include "plugin_interface.h"
 #include "baseplayer.h"
 
+extern ConVar bot_move;
+
 // This is our bot class.
 class CPluginBot
 {
@@ -46,7 +48,11 @@ public:
 
 	bool			m_Respawn;
 
+	int GetMaxHealth();
+
 	void HandleRespawn( CBotCmd &cmd );
+
+	bool CanMove();
 
 	// TODO: should be protected
 	BotBasePlayer *pPlayer;
