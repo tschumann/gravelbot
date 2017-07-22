@@ -136,6 +136,7 @@ void Bot_RunAll( void )
 		if ( pBot->m_BotEdict->IsFree() || !pBot->m_BotEdict->GetUnknown()|| !pBot->m_PlayerInfo->IsConnected() )
 		{
 			s_Bots.Remove(i);
+			delete pBot;
 			--i;
 		}
 		else

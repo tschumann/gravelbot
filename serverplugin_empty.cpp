@@ -206,8 +206,8 @@ void CEmptyServerPlugin::Unload( void )
 	for ( int i = 0; i < s_Bots.Count(); i++ )
 	{
 		CPluginBot *pBot = s_Bots[i];
+		s_Bots.Remove(i);
 		delete pBot;
-		s_Bots[i] = NULL;
 	}
 
 	ConVar_Unregister( );
