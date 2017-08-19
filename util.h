@@ -9,6 +9,9 @@
 #ifndef _UTIL_H_
 #define _UTIL_H_
 
+extern IVEngineServer *engine;
+
 CBaseEntity* GetBaseEntity( edict_t *pEntity );
+BotBasePlayer *CreateBasePlayer(edict_t *pEdict);
 
 #endif // _UTIL_H_

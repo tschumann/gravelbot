@@ -12,11 +12,12 @@
 class BotBasePlayer
 {
 public:
-	BotBasePlayer();
 	BotBasePlayer( CBaseEntity *pObject );
-	virtual const Vector EyeAngles() = 0;
+	virtual const Vector EyeAngles();
 protected:
 	CBaseEntity *pObject;
+
+	int m_EyeAnglesOffset;
 };
 
 #endif // _BOTBASEPLAYER_H_

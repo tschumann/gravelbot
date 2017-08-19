@@ -192,6 +192,7 @@
     <ClCompile Include="..\bot_bms.cpp" />
     <ClCompile Include="..\bot_dod.cpp" />
     <ClCompile Include="..\bot_hl2dm.cpp" />
+    <ClCompile Include="..\dod_player.cpp" />
     <ClCompile Include="..\hl2mp_player.cpp" />
     <ClCompile Include="..\serverplugin_bot.cpp" />
     <ClCompile Include="..\serverplugin_empty.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="..\baseplayer.h" />
     <ClInclude Include="..\bot.h" />
     <ClInclude Include="..\bot_baseentity.h" />
+    <ClInclude Include="..\dod_player.h" />
     <ClInclude Include="..\game.h" />
     <ClInclude Include="..\hl2mp_player.h" />
     <ClInclude Include="..\plugin_interface.h" />

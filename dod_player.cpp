@@ -4,8 +4,8 @@
 // (http://www.teamsandpit.com/)
 //
 
-#include "hl2mp_player.h"
+#include "dod_player.h"
 
-namespace hl2dm
+namespace dod
 {
 }

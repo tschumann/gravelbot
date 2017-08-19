@@ -19,17 +19,7 @@ extern ConVar bot_move;
 class CPluginBot
 {
 public:
-	CPluginBot() :
-		m_bBackwards(0),
-		m_flNextTurnTime(0),
-		m_bLastTurnToRight(0),
-		m_flNextStrafeTime(0),
-		m_flSideMove(0),
-		m_ForwardAngle(),
-		m_LastAngles()
-	{
-		m_Respawn = false;
-	}
+	CPluginBot( edict_t *pEdict );
 
 	bool			m_bBackwards;
 
@@ -54,6 +44,8 @@ public:
 
 	bool CanMove();
 
+	const Vector EyeAngles();
+
 	// TODO: should be protected
 	BotBasePlayer *pPlayer;
 protected:
@@ -61,17 +53,26 @@ protected:
 
 class HL2DMBot : public CPluginBot
 {
-	//
+public:
+	explicit HL2DMBot( edict_t *pEdict ) : CPluginBot( pEdict )
+	{
+	}
 };
 
 class DODBot : public CPluginBot
 {
-	//
+public:
+	explicit DODBot( edict_t *pEdict ) : CPluginBot( pEdict )
+	{
+	}
 };
 
 class BMSBot : public CPluginBot
 {
-	//
+public:
+	explicit BMSBot( edict_t *pEdict ) : CPluginBot( pEdict )
+	{
+	}
 };
 
 extern CUtlVector<CPluginBot *> s_Bots;

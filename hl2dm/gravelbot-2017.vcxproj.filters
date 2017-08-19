@@ -16,6 +16,12 @@
     <Filter Include="Header Files\hl2dm">
       <UniqueIdentifier>{2b194c58-61ff-43d7-9042-f592c1fdb315}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\dods">
+      <UniqueIdentifier>{f1c21363-4cb5-4124-b8bc-3b927e02ef5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dods">
+      <UniqueIdentifier>{261181f5-cf58-413f-a24c-8d9b7130821f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="hl2sdk\public\tier0\memoverride.cpp">
@@ -47,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="..\util.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\dod_player.cpp">
+      <Filter>Source Files\dods</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +153,9 @@
     </ClInclude>
     <ClInclude Include="..\util.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dod_player.h">
+      <Filter>Header Files\dods</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

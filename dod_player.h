@@ -8,7 +8,7 @@
 #include "bot_baseentity.h"
 #include "baseplayer.h"
 
-namespace hl2dm
+namespace dod
 {
 	class CBasePlayer : public BotBasePlayer
 	{

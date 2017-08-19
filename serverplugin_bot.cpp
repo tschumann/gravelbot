@@ -35,8 +35,7 @@
 
 extern IBotManager *botmanager; 
 extern IUniformRandomStream *randomStr;
-extern IPlayerInfoManager *playerinfomanager; 
-extern IVEngineServer	*engine; 
+extern IPlayerInfoManager *playerinfomanager;
 extern IEngineTrace *enginetrace;
 extern IPlayerInfoManager *playerinfomanager; // game dll interface to interact with players
 extern IServerPluginHelpers *helpers; // special 3rd party plugin helpers from the engine
@@ -57,38 +56,21 @@ ConVar bot_move( "plugin_bot_move", "1", 0, "Bot moves" );
 
 CUtlVector<CPluginBot *> s_Bots;
 
-CPluginBot *CreateBot()
+CPluginBot *CreateBot( edict_t *pBotEdict )
 {
 	switch( engine->GetAppID() )
 	{
 	case Game::HL2DM_APPID:
-		return new HL2DMBot();
+		return new HL2DMBot( pBotEdict );
 		break;
 	case Game::DOD_APPID:
-		return new DODBot();
+		return new DODBot( pBotEdict );
 		break;
 	case Game::BMS_APPID:
-		return new BMSBot();
+		return new BMSBot( pBotEdict );
 		break;
 	default:
 		Error( "Unsupported appid %d\n", engine->GetAppID() );
-		return NULL;
-	}
-}
-
-BotBasePlayer *CreateBasePlayer( edict_t *pEdict )
-{
-	switch( engine->GetAppID() )
-	{
-	case Game::HL2DM_APPID:
-		return new hl2dm::CBasePlayer( GetBaseEntity( pEdict ) );
-		break;
-	case Game::DOD_APPID:
-		break;
-	case Game::BMS_APPID:
-		break;
-	default:
-		Error("Unsupported appid %d\n", engine->GetAppID());
 		return NULL;
 	}
 }
@@ -109,12 +91,10 @@ void BotAdd_f()
 	edict_t *botEdict = botmanager->CreateBot( botName );
 	if ( botEdict )
 	{
-		CPluginBot *pBot = CreateBot();
+		CPluginBot *pBot = CreateBot( botEdict );
 		s_Bots.AddToTail( pBot );
 		pBot->m_BotInterface = botmanager->GetBotController( botEdict );
 		pBot->m_PlayerInfo = playerinfomanager->GetPlayerInfo( botEdict );
-		pBot->m_BotEdict = botEdict;
-		pBot->pPlayer = CreateBasePlayer( botEdict );
 		Assert( pBot->m_BotInterface );
 	}
 }
@@ -133,7 +113,7 @@ void Bot_RunAll( void )
 	for ( int i = 0; i < s_Bots.Count(); i++ )
 	{
 		CPluginBot *pBot = s_Bots[i];
-		if ( pBot->m_BotEdict->IsFree() || !pBot->m_BotEdict->GetUnknown()|| !pBot->m_PlayerInfo->IsConnected() )
+		if ( pBot->m_BotEdict->IsFree() || !pBot->m_BotEdict->GetUnknown() || !pBot->m_PlayerInfo->IsConnected() )
 		{
 			s_Bots.Remove(i);
 			delete pBot;
@@ -368,7 +348,7 @@ edict_t *Bot_FindEnemy( CPluginBot *pBot )
 
 		trace_t tr;
 		Ray_t ray;
-		ray.Init( pBot->m_PlayerInfo->GetAbsOrigin(), playerInfo->GetAbsOrigin() );
+		ray.Init( pBot->EyeAngles(), playerInfo->GetAbsOrigin() );
 		CTraceFilterHitAll traceFilter;
 
 		enginetrace->TraceRay( ray, MASK_SHOT, &traceFilter, &tr );
