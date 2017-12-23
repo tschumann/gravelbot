@@ -46,9 +46,14 @@ public:
 
 	const Vector EyeAngles();
 
+	bool FInAimCone( const Vector &vecSpot );
+
 	// TODO: should be protected
 	BotBasePlayer *pPlayer;
 protected:
+	QAngle BodyAngles();
+	Vector BodyDirection2D( void );
+	Vector BodyDirection3D( void );
 };
 
 class HL2DMBot : public CPluginBot

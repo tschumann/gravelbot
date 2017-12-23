@@ -18,7 +18,7 @@ CPluginBot::CPluginBot( edict_t *pEdict )
 	m_LastAngles = QAngle();
 	m_Respawn = false;
 	this->m_BotEdict = pEdict;
-	this->pPlayer = CreateBasePlayer(pEdict);
+	this->pPlayer = CreateBasePlayer( pEdict );
 }
 
 int CPluginBot::GetMaxHealth()
@@ -49,4 +49,55 @@ bool CPluginBot::CanMove()
 const Vector CPluginBot::EyeAngles()
 {
 	return this->pPlayer->EyeAngles();
+}
+
+//-----------------------------------------------------------------------------
+// Repurposed from CAI_BaseNPC::FInAimCone in game/server/ai_basenpc.cpp
+//-----------------------------------------------------------------------------
+bool CPluginBot::FInAimCone( const Vector &vecSpot )
+{
+	Vector los = ( vecSpot - this->m_PlayerInfo->GetAbsOrigin() );
+
+	// do this in 2D
+	los.z = 0;
+	VectorNormalize( los );
+
+	Vector facingDir = BodyDirection2D();
+
+	float flDot = DotProduct(los, facingDir);
+
+	// 60 degree field of view
+	return ( flDot > 0.50 );
+}
+
+//-----------------------------------------------------------------------------
+// Repurposed from CBaseCombatCharacter::BodyAngles in game/server/basecombatcharacter.cpp
+//-----------------------------------------------------------------------------
+QAngle CPluginBot::BodyAngles()
+{
+	return this->m_PlayerInfo->GetAbsAngles();
+}
+
+//-----------------------------------------------------------------------------
+// Repurposed from CBaseCombatCharacter::BodyDirection2D in game/server/basecombatcharacter.cpp
+//-----------------------------------------------------------------------------
+Vector CPluginBot::BodyDirection2D( void )
+{
+	Vector vBodyDir = BodyDirection3D();
+	vBodyDir.z = 0;
+	vBodyDir.AsVector2D().NormalizeInPlace();
+	return vBodyDir;
+}
+
+//-----------------------------------------------------------------------------
+// Repurposed from CBaseCombatCharacter::BodyDirection3D in game/server/basecombatcharacter.cpp
+//-----------------------------------------------------------------------------
+Vector CPluginBot::BodyDirection3D( void )
+{
+	QAngle angles = BodyAngles();
+
+	// FIXME: cache this
+	Vector vBodyDir;
+	AngleVectors( angles, &vBodyDir );
+	return vBodyDir;
 }

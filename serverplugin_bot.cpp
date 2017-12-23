@@ -321,7 +321,7 @@ edict_t *Bot_FindEnemy( CPluginBot *pBot )
 		}
 
 		// if this is the bot itself, skip it
-		if( engine->IndexOfEdict(pBot->m_BotEdict) == i )
+		if( engine->IndexOfEdict( pBot->m_BotEdict ) == i )
 		{
 			continue;
 		}
@@ -332,13 +332,13 @@ edict_t *Bot_FindEnemy( CPluginBot *pBot )
 			continue;
 		}
 
-		// if the player is dead or on the same team, skip them
+		// if the other player is dead or on the same team, skip them
 		if( playerInfo->IsDead() )
 		{
 			continue;
 		}
 
-		// if the player is far away, skip them
+		// if the other player is far away, skip them
 		if( playerInfo->GetAbsOrigin().DistTo( pBot->m_PlayerInfo->GetAbsOrigin() ) > 500.0 )
 		{
 			continue;
@@ -346,9 +346,20 @@ edict_t *Bot_FindEnemy( CPluginBot *pBot )
 
 		Msg( "Player %d is close enough to see\n", i );
 
+		// get the centre of the other player
+		Vector playerCentre = ( playerInfo->GetPlayerMaxs() - playerInfo->GetPlayerMins() ) + playerInfo->GetPlayerMaxs();
+
+		// if the other player isn't in the view coine
+		if( !pBot->FInAimCone( playerCentre ) )
+		{
+			continue;
+		}
+
+		Msg( "Player %d is in view cone\n", i );
+
 		trace_t tr;
 		Ray_t ray;
-		ray.Init( pBot->EyeAngles(), playerInfo->GetAbsOrigin() );
+		ray.Init( pBot->EyeAngles(), playerCentre );
 		CTraceFilterHitAll traceFilter;
 
 		enginetrace->TraceRay( ray, MASK_SHOT, &traceFilter, &tr );
@@ -384,7 +395,7 @@ void Bot_Think( CPluginBot *pBot )
 			{
 				cmd.buttons |= IN_JUMP;
 
-				// once the bot has spawned (should really look at the player_spawn event in FireGameEvent or something like that instead
+				// once the bot has spawned (should really look at the player_spawn event in FireGameEvent or something like that instead)
 				if( pBot->m_PlayerInfo->GetHealth() == pBot->GetMaxHealth() )
 				{
 					// stop pressing buttons
