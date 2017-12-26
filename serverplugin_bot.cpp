@@ -359,7 +359,7 @@ edict_t *Bot_FindEnemy( CPluginBot *pBot )
 
 		trace_t tr;
 		Ray_t ray;
-		ray.Init( pBot->EyeAngles(), playerCentre );
+		ray.Init( pBot->EyePosition(), playerCentre );
 		CTraceFilterHitAll traceFilter;
 
 		enginetrace->TraceRay( ray, MASK_SHOT, &traceFilter, &tr );

@@ -17,6 +17,12 @@ namespace hl2dm
 		{
 		}
 	protected:
+#ifndef __linux__
+		int m_EyePositionOffset = 130;
 		int m_EyeAnglesOffset = 131;
+#else
+		int m_EyePositionOffset = 131;
+		int m_EyeAnglesOffset = 132;
+#endif // __linux__
 	};
 }

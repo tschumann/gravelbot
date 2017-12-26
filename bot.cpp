@@ -46,6 +46,11 @@ bool CPluginBot::CanMove()
 	return bot_move.GetInt() > 0;
 }
 
+const Vector CPluginBot::EyePosition()
+{
+	return this->pPlayer->EyePosition();
+}
+
 const Vector CPluginBot::EyeAngles()
 {
 	return this->pPlayer->EyeAngles();

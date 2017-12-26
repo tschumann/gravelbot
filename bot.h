@@ -44,6 +44,7 @@ public:
 
 	bool CanMove();
 
+	const Vector EyePosition();
 	const Vector EyeAngles();
 
 	bool FInAimCone( const Vector &vecSpot );
