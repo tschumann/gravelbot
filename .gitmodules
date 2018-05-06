@@ -10,3 +10,6 @@
 [submodule "bms/hl2sdk"]
 	path = bms/hl2sdk
 	url = https://github.com/alliedmodders/hl2sdk.git
+[submodule "insurgency/hl2sdk"]
+	path = insurgency/hl2sdk
+	url = https://github.com/alliedmodders/hl2sdk.git
