@@ -15,9 +15,9 @@ BotBasePlayer::BotBasePlayer( CBaseEntity *pObject )
 const Vector BotBasePlayer::EyePosition()
 {
 	// get this
-	void **pThis = *(void ***)&this->pObject;
+	void **pThis = *(void ***)&(this->pObject);
 	// get the vtable as an array of void *
-	void **vtable = *(void ***)this->pObject;
+	void **vtable = *(void ***)(this->pObject);
 	// the method we want is in the vtable
 	void *pMethod = vtable[this->m_EyePositionOffset];
 
@@ -48,9 +48,9 @@ const Vector BotBasePlayer::EyePosition()
 const Vector BotBasePlayer::EyeAngles()
 {
 	// get this
-	void **pThis = *(void ***)&this->pObject;
+	void **pThis = *(void ***)&(this->pObject);
 	// get the vtable as an array of void *
-	void **vtable = *(void ***)this->pObject;
+	void **vtable = *(void ***)(this->pObject);
 	// the method we want is in the vtable
 	void *pMethod = vtable[this->m_EyeAnglesOffset];
 
