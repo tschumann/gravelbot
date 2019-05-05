@@ -15,11 +15,11 @@ BotBasePlayer::BotBasePlayer( CBaseEntity *pObject )
 const Vector BotBasePlayer::EyePosition()
 {
 	// get this
-	void **pThis = *(void ***)&(this->pObject);
+	void **ppThis = *(void ***)&(this->pObject);
 	// get the vtable as an array of void *
-	void **vtable = *(void ***)(this->pObject);
+	void **ppVTable = *(void ***)(this->pObject);
 	// the method we want is in the vtable
-	void *pMethod = vtable[this->m_EyePositionOffset];
+	void *pMethod = ppVTable[this->m_EyePositionOffset];
 
 	// use a union to get the address as a function pointer
 	union
@@ -42,17 +42,17 @@ const Vector BotBasePlayer::EyePosition()
 	u.s.adjustor = 0;
 #endif // __linux__
 
-	return (Vector)(reinterpret_cast<VirtualEmpty*>(pThis)->*u.mfpnew)();
+	return (Vector)(reinterpret_cast<VirtualEmpty*>(ppThis)->*u.mfpnew)();
 }
 
 const Vector BotBasePlayer::EyeAngles()
 {
 	// get this
-	void **pThis = *(void ***)&(this->pObject);
+	void **ppThis = *(void ***)&(this->pObject);
 	// get the vtable as an array of void *
-	void **vtable = *(void ***)(this->pObject);
+	void **ppVTable = *(void ***)(this->pObject);
 	// the method we want is in the vtable
-	void *pMethod = vtable[this->m_EyeAnglesOffset];
+	void *pMethod = ppVTable[this->m_EyeAnglesOffset];
 
 	// use a union to get the address as a function pointer
 	union
@@ -75,5 +75,5 @@ const Vector BotBasePlayer::EyeAngles()
 	u.s.adjustor = 0;
 #endif // __linux__
 
-	return (Vector)(reinterpret_cast<VirtualEmpty*>(pThis)->*u.mfpnew)();
+	return (Vector)(reinterpret_cast<VirtualEmpty*>(ppThis)->*u.mfpnew)();
 }

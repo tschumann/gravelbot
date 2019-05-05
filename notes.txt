@@ -4,7 +4,7 @@ Adding support for a new engine version:
 - cd hl2sdk and git checkout the branch for the new engine version
 
 Working out method offsets
-- There is information at https://wiki.alliedmods.net/Virtual_Offsets_(Source_Mods) and an online tool https://asherkin.github.io/vtable/ (currently the tool only supports a sub-set of games and doesn't seem to work in Chrome, but does work in Firefox).
+- There is information at https://wiki.alliedmods.net/Virtual_Offsets_(Source_Mods) and an online tool https://asherkin.github.io/vtable/ (currently the tool only supports a sub-set of games).
 
 Development
 - Work in sdk2013
