@@ -14,26 +14,28 @@ BotBasePlayer::BotBasePlayer( CBaseEntity *pObject )
 
 const Vector BotBasePlayer::EyePosition()
 {
+	const CBaseEntity *pEntity = this->pObject;
+
 	// get this
-	void **ppThis = *(void ***)&(this->pObject);
+	const void **ppThis = *(const void ***)&pEntity;
 	// get the vtable as an array of void *
-	void **ppVTable = *(void ***)(this->pObject);
+	const void **ppVirtualTable = *(const void ***)pEntity;
 	// the method we want is in the vtable
-	void *pMethod = ppVTable[this->m_EyePositionOffset];
+	const void *pMethod = ppVirtualTable[this->m_EyePositionOffset];
 
 	// use a union to get the address as a function pointer
 	union
 	{
 		Vector(VirtualEmpty::*mfpnew)();
 #ifndef __linux__
-		void *addr;
+		const void *addr;
 	} u;
 
 	u.addr = pMethod;
 #else // GCC's member function pointers all contain this pointer adjustor - you'd probably set it to 0 
 		struct
 		{
-			void *addr;
+			const void *addr;
 			intptr_t adjustor;
 		} s;
 } u;
@@ -47,26 +49,28 @@ const Vector BotBasePlayer::EyePosition()
 
 const Vector BotBasePlayer::EyeAngles()
 {
+	const CBaseEntity *pEntity = this->pObject;
+
 	// get this
-	void **ppThis = *(void ***)&(this->pObject);
+	const void **ppThis = *(const void ***)&pEntity;
 	// get the vtable as an array of void *
-	void **ppVTable = *(void ***)(this->pObject);
+	const void **ppVirtualTable = *(const void ***)pEntity;
 	// the method we want is in the vtable
-	void *pMethod = ppVTable[this->m_EyeAnglesOffset];
+	const void *pMethod = ppVirtualTable[this->m_EyeAnglesOffset];
 
 	// use a union to get the address as a function pointer
 	union
 	{
 		Vector(VirtualEmpty::*mfpnew)();
 #ifndef __linux__
-		void *addr;
+		const void *addr;
 	} u;
 
 	u.addr = pMethod;
 #else // GCC's member function pointers all contain this pointer adjustor - you'd probably set it to 0 
 		struct
 		{
-			void *addr;
+			const void *addr;
 			intptr_t adjustor;
 		} s;
 	} u;

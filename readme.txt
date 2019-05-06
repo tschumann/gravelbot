@@ -5,7 +5,7 @@ Gravelbot
 Name: Gravelbot
 Description: A deathmatch bot for Half-Life 2 Deatmatch and Black Mesa.
 Requirements: Steam versions of either Half-Life 2 Deatmatch or Black Mesa.
-Installation: Copy the files into your Steam/steamapps/common directory
+Installation: Copy the files into your Steam/steamapps/common/ directory
               Add the -insecure command line option and possibly the -allowdebug command line option too
 
 == Usage ==

@@ -403,19 +403,19 @@ void Bot_Think( CPluginBot *pBot )
 				}
 			}
 
+			edict_t *pEnemy = Bot_FindEnemy( pBot );
+
+			if( pEnemy )
+			{
+				Warning( "Found enemy\n" );
+			}
+
 			Bot_SetForwardMovement( pBot, cmd );
 
 			if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) && pBot->CanMove() )
 			{
 				Bot_UpdateDirection( pBot );
 				Bot_UpdateStrafing( pBot, cmd );
-			}
-
-			edict_t *pEnemy = Bot_FindEnemy( pBot );
-
-			if( pEnemy )
-			{
-				Warning( "Found enemy\n" );
 			}
 
 			// Handle console settings.
