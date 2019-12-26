@@ -16,6 +16,7 @@ plugin_bot_add		Add a bot to the server
 
 Q. How do I build Gravelbot?
 A. If you want to build it yourself, use a tagged release as the head of master can be unstable.
+   Check out the project and run git submodule update --init --recursive to checkout the submodules (can take a while).
    On Windows open the gravelbot-2017.sln (the one in the directory for the game you want to play) with Visual Studio and compile it.
 
 == Changelog ==
