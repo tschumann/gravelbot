@@ -46,3 +46,4 @@ Bots United for their support.
 == Credits ==
 
 Programming: tschumann
+SDK: Valve and Allied Modders

@@ -29,5 +29,5 @@ Working out method offsets:
 - There is information at https://wiki.alliedmods.net/Virtual_Offsets_(Source_Mods) and an online tool https://asherkin.github.io/vtable/ (currently the tool only supports a sub-set of games).
 
 Development:
-- Work in sdk2013
+- Do work in sdk2013 directory
 - Copy project files into other directories and make sure they compile
