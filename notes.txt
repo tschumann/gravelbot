@@ -2,28 +2,10 @@ Adding support for a new engine version:
 - Create a new directory in gravelbot/
 - cd into the new directory and git submodule add https://github.com/alliedmodders/hl2sdk.git
 - cd hl2sdk and git checkout the branch for the new engine version
+- update update-sdks.sh to make sure new changes get pulled in
 
 Updating hl2sdk:
-cd bms/hl2sdk
-git checkout bms
-git pull
-cd ../..
-cd dods/hl2sdk
-git checkout dods
-git pull
-cd ../..
-cd insurgency/hl2sdk
-git checkout episode1
-git pull
-cd ../..
-cd hl2dm/hl2sdk
-git checkout hl2dm
-git pull
-cd ../..
-cd sdk2013/hl2sdk
-git checkout sdk2013
-git pull
-cd ../..
+./update-sdks.sh
 
 Working out method offsets:
 - There is information at https://wiki.alliedmods.net/Virtual_Offsets_(Source_Mods) and an online tool https://asherkin.github.io/vtable/ (currently the tool only supports a sub-set of games).
