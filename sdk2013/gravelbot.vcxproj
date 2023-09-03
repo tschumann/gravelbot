@@ -63,7 +63,7 @@
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>hl2sdk\common;hl2sdk\public;hl2sdk\public\tier0;hl2sdk\public\tier1;hl2sdk\game\server;hl2sdk\game\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>hl2sdk;hl2sdk\common;hl2sdk\public;hl2sdk\public\tier0;hl2sdk\public\tier1;hl2sdk\game\server;hl2sdk\game\shared;hl2sdk\game_shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32;_DEBUG;DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;serverplugin_emptyONLY;_MBCS;%(PreprocessorDefinitions);NO_MALLOC_OVERRIDE</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <MinimalRebuild>true</MinimalRebuild>
@@ -129,7 +129,7 @@
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>hl2sdk\common;hl2sdk\public;hl2sdk\public\tier0;hl2sdk\public\tier1;hl2sdk\game\server;hl2sdk\game\shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>hl2sdk;hl2sdk\common;hl2sdk\public;hl2sdk\public\tier0;hl2sdk\public\tier1;hl2sdk\game\server;hl2sdk\game\shared;hl2sdk\game_shared;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WIN32;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;serverplugin_emptyONLY;_MBCS;%(PreprocessorDefinitions);NO_MALLOC_OVERRIDE</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <ExceptionHandling />

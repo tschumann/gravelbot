@@ -14,16 +14,36 @@
 #include "interface.h"
 #include "filesystem.h"
 #undef VECTOR_NO_SLOW_OPERATIONS
+#if __has_include("vector.h")
+#include "vector.h"
+#endif
+#if __has_include("mathlib/vector.h")
 #include "mathlib/vector.h"
+#endif
 
 #include "eiface.h"
 #include "edict.h"
+#if __has_include("public/dlls/iplayerinfo.h")
+#include "public/dlls/iplayerinfo.h"
+#endif
+#if __has_include("game/server/iplayerinfo.h")
 #include "game/server/iplayerinfo.h"
+#endif
 #include "igameevents.h"
 #include "convar.h"
 #include "vstdlib/random.h"
+#if __has_include("game_shared/in_buttons.h")
+#include "game_shared/in_buttons.h"
+#endif
+#if __has_include("../../game/shared/in_buttons.h")
 #include "../../game/shared/in_buttons.h"
+#endif
+#if __has_include("game_shared/shareddefs.h")
+#include "game_shared/shareddefs.h"
+#endif
+#if __has_include("../../game/shared/shareddefs.h")
 #include "../../game/shared/shareddefs.h"
+#endif
 //#include "../../game_shared/util_shared.h"
 #include "engine/IEngineTrace.h"
 

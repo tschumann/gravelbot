@@ -9,7 +9,12 @@
 
 #include "eiface.h"
 #include "edict.h"
+#if __has_include("dlls/iplayerinfo.h")
+#include "dlls/iplayerinfo.h"
+#endif
+#if __has_include("game/server/iplayerinfo.h")
 #include "game/server/iplayerinfo.h"
+#endif
 #include "plugin_interface.h"
 #include "baseplayer.h"
 
