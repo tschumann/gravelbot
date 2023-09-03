@@ -13,6 +13,6 @@
 [submodule "insurgency/hl2sdk"]
 	path = insurgency/hl2sdk
 	url = https://github.com/alliedmodders/hl2sdk.git
-[submodule "darkmessiah/hl2sdk"]
-	path = darkmessiah/hl2sdk
+[submodule "darkm/hl2sdk"]
+	path = darkm/hl2sdk
 	url = https://github.com/alliedmodders/hl2sdk
