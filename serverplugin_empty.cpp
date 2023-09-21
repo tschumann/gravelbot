@@ -44,6 +44,8 @@
 #include "bot.h"
 #include "tier1.h"
 
+#include "util.h"
+
 //#define SAMPLE_TF2_PLUGIN
 #ifdef SAMPLE_TF2_PLUGIN
 #include "tf/tf_shareddefs.h"
@@ -85,7 +87,89 @@ inline bool FStrEq(const char *sz1, const char *sz2)
 //---------------------------------------------------------------------------------
 // Purpose: a sample 3rd party plugin class
 //---------------------------------------------------------------------------------
+#if !defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_1) && !defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_2)
+#define ISERVERPLUGINCALLBACKS001
+#endif
+#if defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_1) && !defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_2)
+#define ISERVERPLUGINCALLBACKS002
+#endif
 #if defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_1) && defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_2)
+#define ISERVERPLUGINCALLBACKS003
+#endif
+#ifdef ISERVERPLUGINCALLBACKS001
+class CEmptyServerPlugin : public IServerPluginCallbacks, public IGameEventListener
+{
+public:
+	CEmptyServerPlugin();
+	~CEmptyServerPlugin();
+
+	// IServerPluginCallbacks methods
+	virtual bool			Load( CreateInterfaceFn interfaceFactory, CreateInterfaceFn gameServerFactory );
+	virtual void			Unload( void );
+	virtual void			Pause( void );
+	virtual void			UnPause( void );
+	virtual const char* GetPluginDescription( void );
+	virtual void			LevelInit( char const* pMapName );
+	virtual void			ServerActivate( edict_t* pEdictList, int edictCount, int clientMax );
+	virtual void			GameFrame( bool simulating );
+	virtual void			LevelShutdown( void );
+	virtual void			ClientActive( edict_t* pEntity );
+	virtual void			ClientDisconnect( edict_t* pEntity );
+	virtual void			ClientPutInServer( edict_t* pEntity, char const* playername );
+	virtual void			SetCommandClient( int index );
+	virtual void			ClientSettingsChanged( edict_t* pEdict );
+	virtual PLUGIN_RESULT	ClientConnect( bool* bAllowConnect, edict_t* pEntity, const char* pszName, const char* pszAddress, char* reject, int maxrejectlen );
+	virtual PLUGIN_RESULT	ClientCommand( edict_t* pEntity );
+	virtual PLUGIN_RESULT	NetworkIDValidated( const char* pszUserName, const char* pszNetworkID );
+
+	// IGameEventListener Interface
+	virtual void FireGameEvent( KeyValues* event );
+
+	virtual int GetCommandIndex() { return m_iClientCommandIndex; }
+private:
+	int m_iClientCommandIndex;
+};
+#endif // ISERVERPLUGINCALLBACKS001
+#ifdef ISERVERPLUGINCALLBACKS002
+class CEmptyServerPlugin : public IServerPluginCallbacks, public IGameEventListener
+{
+public:
+	CEmptyServerPlugin();
+	~CEmptyServerPlugin();
+
+	// IServerPluginCallbacks methods
+	virtual bool			Load( CreateInterfaceFn interfaceFactory, CreateInterfaceFn gameServerFactory );
+	virtual void			Unload( void );
+	virtual void			Pause( void );
+	virtual void			UnPause( void );
+	virtual const char* GetPluginDescription( void );
+	virtual void			LevelInit( char const* pMapName );
+	virtual void			ServerActivate( edict_t* pEdictList, int edictCount, int clientMax );
+	virtual void			GameFrame( bool simulating );
+	virtual void			LevelShutdown( void );
+	virtual void			ClientActive( edict_t* pEntity );
+	virtual void			ClientDisconnect( edict_t* pEntity );
+	virtual void			ClientPutInServer( edict_t* pEntity, char const* playername );
+	virtual void			SetCommandClient( int index );
+	virtual void			ClientSettingsChanged( edict_t* pEdict );
+	virtual PLUGIN_RESULT	ClientConnect( bool* bAllowConnect, edict_t* pEntity, const char* pszName, const char* pszAddress, char* reject, int maxrejectlen );
+#if defined(APPID) && APPID == 17700
+	virtual PLUGIN_RESULT	ClientCommand( edict_t* pEntity );
+#else
+	virtual PLUGIN_RESULT	ClientCommand( edict_t* pEntity, const CCommand& args );
+#endif
+	virtual PLUGIN_RESULT	NetworkIDValidated( const char* pszUserName, const char* pszNetworkID );
+	virtual void			OnQueryCvarValueFinished( QueryCvarCookie_t iCookie, edict_t *pPlayerEntity, EQueryCvarValueStatus eStatus, const char *pCvarName, const char *pCvarValue );
+
+	// IGameEventListener Interface
+	virtual void FireGameEvent( KeyValues* event );
+
+	virtual int GetCommandIndex() { return m_iClientCommandIndex; }
+private:
+	int m_iClientCommandIndex;
+};
+#endif // ISERVERPLUGINCALLBACKS002
+#ifdef ISERVERPLUGINCALLBACKS003
 class CEmptyServerPlugin: public IServerPluginCallbacks, public IGameEventListener
 {
 public:
@@ -121,40 +205,7 @@ public:
 private:
 	int m_iClientCommandIndex;
 };
-#else
-class CEmptyServerPlugin : public IServerPluginCallbacks, public IGameEventListener
-{
-public:
-	CEmptyServerPlugin();
-	~CEmptyServerPlugin();
-
-	// IServerPluginCallbacks methods
-	virtual bool			Load( CreateInterfaceFn interfaceFactory, CreateInterfaceFn gameServerFactory );
-	virtual void			Unload( void );
-	virtual void			Pause( void );
-	virtual void			UnPause( void );
-	virtual const char* GetPluginDescription( void );
-	virtual void			LevelInit( char const* pMapName );
-	virtual void			ServerActivate( edict_t* pEdictList, int edictCount, int clientMax );
-	virtual void			GameFrame( bool simulating );
-	virtual void			LevelShutdown( void );
-	virtual void			ClientActive( edict_t* pEntity );
-	virtual void			ClientDisconnect( edict_t* pEntity );
-	virtual void			ClientPutInServer( edict_t* pEntity, char const* playername );
-	virtual void			SetCommandClient( int index );
-	virtual void			ClientSettingsChanged( edict_t* pEdict );
-	virtual PLUGIN_RESULT	ClientConnect( bool* bAllowConnect, edict_t* pEntity, const char* pszName, const char* pszAddress, char* reject, int maxrejectlen );
-	virtual PLUGIN_RESULT	ClientCommand( edict_t* pEntity );
-	virtual PLUGIN_RESULT	NetworkIDValidated( const char* pszUserName, const char* pszNetworkID );
-
-	// IGameEventListener Interface
-	virtual void FireGameEvent( KeyValues* event );
-
-	virtual int GetCommandIndex() { return m_iClientCommandIndex; }
-private:
-	int m_iClientCommandIndex;
-};
-#endif
+#endif // ISERVERPLUGINCALLBACKS003
 
 
 // 
@@ -231,7 +282,7 @@ bool CEmptyServerPlugin::Load(	CreateInterfaceFn interfaceFactory, CreateInterfa
 	}
 
 	MathLib_Init( 2.2f, 2.2f, 0.0f, 2.0f );
-#if defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_1) && defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_2)
+#if defined(ISERVERPLUGINCALLBACKS003)
 	ConVar_Register( 0 );
 #endif
 	return true;
@@ -252,7 +303,7 @@ void CEmptyServerPlugin::Unload( void )
 		delete pBot;
 	}
 
-#if defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_1) && defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_2)
+#if defined(ISERVERPLUGINCALLBACKS003)
 	ConVar_Unregister( );
 #endif
 	DisconnectTier2Libraries( );
@@ -791,14 +842,14 @@ void FlagStatus( edict_t *pPlayer )
 //---------------------------------------------------------------------------------
 // Purpose: called when a client types in a command (only a subset of commands however, not CON_COMMAND's)
 //---------------------------------------------------------------------------------
-#if defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_1) && defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_2)
+#if defined(ISERVERPLUGINCALLBACKS001) || (defined(APPID) && APPID == 17700)
+PLUGIN_RESULT CEmptyServerPlugin::ClientCommand( edict_t* pEntity )
+{
+	const char* pcmd = engine->Cmd_Argv(0);
+#else
 PLUGIN_RESULT CEmptyServerPlugin::ClientCommand( edict_t *pEntity, const CCommand &args )
 {
 	const char *pcmd = args[0];
-#else
-PLUGIN_RESULT CEmptyServerPlugin::ClientCommand( edict_t * pEntity )
-{
-	const char* pcmd = engine->Cmd_Argv(0);
 #endif
 	if ( !pEntity || pEntity->IsFree() ) 
 	{
@@ -960,7 +1011,7 @@ PLUGIN_RESULT CEmptyServerPlugin::NetworkIDValidated( const char *pszUserName, c
 	return PLUGIN_CONTINUE;
 }
 
-#if defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_1) && defined(INTERFACEVERSION_ISERVERPLUGINCALLBACKS_VERSION_2)
+#if defined(ISERVERPLUGINCALLBACKS002) || defined(ISERVERPLUGINCALLBACKS003)
 //---------------------------------------------------------------------------------
 // Purpose: called when a cvar value query is finished
 //---------------------------------------------------------------------------------
@@ -968,13 +1019,15 @@ void CEmptyServerPlugin::OnQueryCvarValueFinished( QueryCvarCookie_t iCookie, ed
 {
 	Msg( "Cvar query (cookie: %d, status: %d) - name: %s, value: %s\n", iCookie, eStatus, pCvarName, pCvarValue );
 }
+#endif // ISERVERPLUGINCALLBACKS002 || ISERVERPLUGINCALLBACKS003
+#if defined(ISERVERPLUGINCALLBACKS003)
 void CEmptyServerPlugin::OnEdictAllocated( edict_t *edict )
 {
 }
 void CEmptyServerPlugin::OnEdictFreed( const edict_t *edict  )
 {
 }
-#endif
+#endif // ISERVERPLUGINCALLBACKS003
 
 //---------------------------------------------------------------------------------
 // Purpose: called when an event is fired

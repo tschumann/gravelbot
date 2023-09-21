@@ -9,6 +9,10 @@
 #ifndef _UTIL_H_
 #define _UTIL_H_
 
+#if __has_include("../appid.h")
+#include "../appid.h"
+#endif
+
 extern IVEngineServer *engine;
 
 int GetAppID();

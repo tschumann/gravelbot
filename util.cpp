@@ -12,10 +12,6 @@
 
 int GetAppID()
 {
-#if __has_include("../appid.h")
-#include "../appid.h"
-#endif
-
 #ifdef APPID
 	return APPID;
 #else
