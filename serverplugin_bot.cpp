@@ -78,7 +78,7 @@ CUtlVector<CPluginBot *> s_Bots;
 
 CPluginBot *CreateBot( edict_t *pBotEdict )
 {
-	switch( engine->GetAppID() )
+	switch( GetAppID() )
 	{
 	case Game::HL2DM_APPID:
 		return new HL2DMBot( pBotEdict );
@@ -90,7 +90,7 @@ CPluginBot *CreateBot( edict_t *pBotEdict )
 		return new BMSBot( pBotEdict );
 		break;
 	default:
-		Error( "Unsupported appid %d\n", engine->GetAppID() );
+		Error( "Unsupported appid %d\n", GetAppID() );
 		return NULL;
 	}
 }

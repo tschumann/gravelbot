@@ -10,6 +10,19 @@
 #include "hl2mp_player.h"
 #include "dod_player.h"
 
+int GetAppID()
+{
+#if __has_include("../appid.h")
+#include "../appid.h"
+#endif
+
+#ifdef APPID
+	return APPID;
+#else
+	return engine->GetAppID();
+#endif // APPID
+}
+
 CBaseEntity* GetBaseEntity( edict_t *pEntity )
 {
 	if( !pEntity || pEntity->IsFree() )
@@ -24,7 +37,7 @@ CBaseEntity* GetBaseEntity( edict_t *pEntity )
 
 BotBasePlayer *CreateBasePlayer( edict_t *pEdict )
 {
-	switch( engine->GetAppID() )
+	switch( GetAppID() )
 	{
 	case Game::DOD_APPID:
 		return new dod::CBasePlayer( GetBaseEntity( pEdict ) );
@@ -38,7 +51,7 @@ BotBasePlayer *CreateBasePlayer( edict_t *pEdict )
 	case Game::EYE_APPID:
 	case Game::BMS_APPID:
 	default:
-		Error( "Unsupported appid %d\n", engine->GetAppID() );
+		Error( "Unsupported appid %d\n", GetAppID() );
 		return nullptr;
 	}
 }

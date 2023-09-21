@@ -11,6 +11,7 @@
 
 extern IVEngineServer *engine;
 
+int GetAppID();
 CBaseEntity* GetBaseEntity( edict_t *pEntity );
 BotBasePlayer *CreateBasePlayer(edict_t *pEdict);
 
