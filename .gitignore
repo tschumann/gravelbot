@@ -4,3 +4,6 @@ Debug/
 Release/
 
 *.user
+
+*.dll
+*.so
