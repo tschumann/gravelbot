@@ -282,7 +282,7 @@ bool CEmptyServerPlugin::Load(	CreateInterfaceFn interfaceFactory, CreateInterfa
 	}
 
 	MathLib_Init( 2.2f, 2.2f, 0.0f, 2.0f );
-#if defined(ISERVERPLUGINCALLBACKS003)
+#if defined(ISERVERPLUGINCALLBACKS002) || defined(ISERVERPLUGINCALLBACKS003)
 	ConVar_Register( 0 );
 #endif
 	return true;
@@ -303,7 +303,7 @@ void CEmptyServerPlugin::Unload( void )
 		delete pBot;
 	}
 
-#if defined(ISERVERPLUGINCALLBACKS003)
+#if defined(ISERVERPLUGINCALLBACKS002) || defined(ISERVERPLUGINCALLBACKS003)
 	ConVar_Unregister( );
 #endif
 	DisconnectTier2Libraries( );
