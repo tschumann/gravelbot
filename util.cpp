@@ -47,7 +47,7 @@ BotBasePlayer *CreateBasePlayer( edict_t *pEdict )
 	case Game::EYE_APPID:
 	case Game::BMS_APPID:
 	default:
-		Error( "Unsupported appid %d\n", GetAppID() );
+		Error("Unsupported appid %d in " __FUNCTION__ "\n", GetAppID());
 		return nullptr;
 	}
 }

@@ -90,7 +90,7 @@ CPluginBot *CreateBot( edict_t *pBotEdict )
 		return new BMSBot( pBotEdict );
 		break;
 	default:
-		Error( "Unsupported appid %d\n", GetAppID() );
+		Error( "Unsupported appid %d in " __FUNCTION__ "\n", GetAppID() );
 		return NULL;
 	}
 }
