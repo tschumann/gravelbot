@@ -316,7 +316,7 @@ void Bot_ForceFireWeapon( CPluginBot *pBot, CBotCmd &cmd )
 
 void Bot_SetForwardMovement( CPluginBot *pBot, CBotCmd &cmd )
 {
-	if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) && pBot->CanMove() )
+	if ( /*!pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) &&*/ pBot->CanMove() )
 	{
 		cmd.forwardmove = 600 * ( pBot->m_bBackwards ? -1 : 1 );
 		if ( pBot->m_flSideMove != 0.0f )
@@ -388,6 +388,7 @@ edict_t *Bot_FindEnemy( CPluginBot *pBot )
 		if( tr.fraction == 1.0 )
 		{
 			Msg( "Trace hit something\n" );
+			pEnemy = pEdict;
 		}
 	}
 
@@ -432,7 +433,7 @@ void Bot_Think( CPluginBot *pBot )
 
 			Bot_SetForwardMovement( pBot, cmd );
 
-			if ( !pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) && pBot->CanMove() )
+			if ( /*!pBot->m_BotInterface->IsEFlagSet(EFL_BOT_FROZEN) &&*/ pBot->CanMove() )
 			{
 				Bot_UpdateDirection( pBot );
 				Bot_UpdateStrafing( pBot, cmd );
